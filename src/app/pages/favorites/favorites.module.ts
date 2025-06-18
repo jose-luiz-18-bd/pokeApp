@@ -4,17 +4,16 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PokemonDetailPageRoutingModule } from './pokemon-detail-routing.module';
+import { FavoritesPageRoutingModule } from './favorites-routing.module';
 
-import { PokemonDetailPage } from './pokemon-detail.page';
+import { FavoritesPage } from './favorites.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PokemonDetailPageRoutingModule,
-    PokemonDetailPage,
+    FavoritesPageRoutingModule
   ],
 })
-export class PokemonDetailPageModule {}
+export class FavoritesPageModule {}

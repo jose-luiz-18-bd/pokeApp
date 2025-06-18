@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Favoritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="favorites.length; else empty">
+    <ion-item *ngFor="let name of favorites">
+      {{ name }}
+    </ion-item>
+  </ion-list>
+
+  <ng-template #empty>
+    <ion-text color="medium" class="ion-padding">
+      Nenhum Pokémon favorito ainda.
+    </ion-text>
+  </ng-template>
+</ion-content>
