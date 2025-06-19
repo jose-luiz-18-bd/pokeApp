@@ -5,20 +5,28 @@ import { Injectable } from '@angular/core';
 })
 export class FavoriteService {
   private favorites = new Set<string>();
+  private storageKey = 'favoritePokemons'
+
+  getFavorites(): string[] {
+    const data = localStorage.getItem(this.storageKey);
+    return data ? JSON.parse(data) : [];
+  }
 
   isFavorite(name: string): boolean {
-    return this.favorites.has(name);
+    return this.getFavorites().includes(name);
   }
 
   toggleFavorite(name: string): void {
-    if (this.isFavorite(name)) {
-      this.favorites.delete(name);
+    const favorites = this.getFavorites();
+    const index = favorites.indexOf(name);
+
+    if (index >= 0) {
+      favorites.splice(index, 1);
     } else {
-      this.favorites.add(name);
+      favorites.push(name);
     }
+
+    localStorage.setItem(this.storageKey, JSON.stringify(favorites));
   }
 
-  getFavorites(): string[] {
-    return Array.from(this.favorites);
-  }
 }

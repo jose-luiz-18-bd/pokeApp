@@ -4,16 +4,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list *ngIf="favorites.length; else empty">
-    <ion-item *ngFor="let name of favorites">
-      {{ name }}
+<ion-content class="ion-padding">
+  <ion-list *ngIf="favorites.length; else emptyList">
+    <ion-item
+      *ngFor="let name of favorites"
+      (click)="goToDetail(name)"
+      detail
+    >
+      <ion-label>{{ name | titlecase }}</ion-label>
     </ion-item>
   </ion-list>
 
-  <ng-template #empty>
-    <ion-text color="medium" class="ion-padding">
-      Nenhum Pokémon favorito ainda.
+  <ng-template #emptyList>
+    <ion-text color="medium" class="ion-text-center">
+      <p>Nenhum Pokémon adicionado aos favoritos ainda.</p>
     </ion-text>
   </ng-template>
 </ion-content>
+

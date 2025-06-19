@@ -63,10 +63,6 @@ export class HomePage implements OnInit {
   }
 
   goToDetail(name: string) {
-    this.router.navigate(['/pokemon', name]);
+    this.router.navigate(['/pokemon-detail', name]);
   }
 }
-
-
-
-

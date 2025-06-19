@@ -19,7 +19,7 @@ export class PokemonService {
   }
 
   getPokemonByName(name: string): Observable<any> {
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    return this.http.get(`${this.baseUrl}/pokemon/${name}`);
   }
 
 }
