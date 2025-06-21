@@ -16,6 +16,7 @@ import { FavoriteService } from 'src/app/services/favorite.service';
 })
 export class HomePage implements OnInit {
   pokemons: any[] = [];
+  favorites: string[] = []; // exemplo
   offset = 0;
   limit = 20;
 
@@ -32,6 +33,7 @@ export class HomePage implements OnInit {
   isFavorite(name: string): boolean {
     return this.favoriteService.isFavorite(name);
   }
+
 
   toggleFavorite(name: string): void {
     this.favoriteService.toggleFavorite(name);
@@ -65,4 +67,26 @@ export class HomePage implements OnInit {
   goToDetail(name: string) {
     this.router.navigate(['/pokemon-detail', name]);
   }
+
+
+  doRefresh(event: any) {
+    this.offset = 0;
+    this.pokemons = [];
+    this.pokemonService.getPokemonList(this.offset, this.limit).subscribe(response => {
+      const results = response.results;
+      results.forEach((poke: any) => {
+        const id = this.extractPokemonId(poke.url);
+        this.pokemons.push({
+          name: poke.name,
+          id: id,
+          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+        });
+      });
+      event.target.complete(); // Finaliza o loading do refresher
+    }, error => {
+      console.error('Erro ao carregar Pokémons:', error);
+      event.target.complete(); // Finaliza o loading mesmo com erro
+    });
+  }
+
 }

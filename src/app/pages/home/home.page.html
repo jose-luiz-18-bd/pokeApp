@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-grid>
     <ion-row>
       <ion-col
@@ -13,15 +16,26 @@
         [size]="6"
         *ngFor="let pokemon of pokemons"
       >
-        <ion-card (click)="goToDetail(pokemon.name)">
+        <ion-card class="pokemon-card">
           <img [src]="pokemon.image" />
+
           <ion-card-header>
             <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
-        </ion-card-header>
+          </ion-card-header>
+
+          <!-- Ícone da estrela no canto inferior direito -->
+          <ion-icon
+            name="star"
+            class="favorite-icon"
+            [color]="isFavorite(pokemon.name) ? 'primary' : 'medium'">
+          </ion-icon>
+
+          <!-- Ação de clique no card inteiro -->
+          <div class="click-overlay" (click)="goToDetail(pokemon.name)"></div>
         </ion-card>
+
       </ion-col>
     </ion-row>
   </ion-grid>
-
   <ion-button expand="full" (click)="loadMore()">Carregar mais</ion-button>
 </ion-content>
